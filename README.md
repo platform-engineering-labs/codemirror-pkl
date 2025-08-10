@@ -18,4 +18,4 @@ Things you'll need to do (see the [language support example](https://codemirror.
 
  * Optionally add a license.
 
- * Publish. Put your package on npm under a name like `codemirror-lang-EXAMPLE`.
+ * Publish. Put your package on npm under a name like `codemirror-lang-pkl`.

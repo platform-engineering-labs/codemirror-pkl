@@ -2,29 +2,40 @@ import {parser} from "./syntax.grammar"
 import {LRLanguage, LanguageSupport, indentNodeProp, foldNodeProp, foldInside, delimitedIndent} from "@codemirror/language"
 import {styleTags, tags as t} from "@lezer/highlight"
 
-export const EXAMPLELanguage = LRLanguage.define({
+export const pklLanguage = LRLanguage.define({
+  name: "pkl",
   parser: parser.configure({
     props: [
       indentNodeProp.add({
-        Application: delimitedIndent({closing: ")", align: false})
+        FunctionCall: delimitedIndent({closing: ")", align: false}),
+        Block: delimitedIndent({closing: "}", align: true})
       }),
       foldNodeProp.add({
-        Application: foldInside
+        Block: foldInside,
+        FunctionCall: foldInside
       }),
       styleTags({
-        Identifier: t.variableName,
+        "amends import module": t.moduleKeyword,
+        Identifier: t.propertyName,
         Boolean: t.bool,
         String: t.string,
+        NumberLiteral: t.number,
         LineComment: t.lineComment,
-        "( )": t.paren
+        BlockComment: t.blockComment, 
+        DocComment: t.docComment,
+        "( )": t.paren,
+        "{ }": t.brace,
+        "[ ]": t.squareBracket,
+        "Function": t.function(t.keyword),
+        "Return": t.controlKeyword
       })
     ]
   }),
   languageData: {
-    commentTokens: {line: ";"}
+    commentTokens: {line: "//", block: {open: "/*", close: "*/"}}
   }
 })
 
-export function EXAMPLE() {
-  return new LanguageSupport(EXAMPLELanguage)
+export function pkl() {
+  return new LanguageSupport(pklLanguage)
 }

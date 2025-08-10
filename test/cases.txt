@@ -1,7 +1,7 @@
 # Booleans
 
-#t
-#f
+true
+false
 
 ==>
 
@@ -28,7 +28,7 @@ Program(String, String)
 # Applications
 
 (begin
-  (when #t
+  (when true
     (print (concat "hello" " " "world")))
   (print "DONE"))
 

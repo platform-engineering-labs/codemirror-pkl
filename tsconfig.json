@@ -4,7 +4,11 @@
     "target": "es6",
     "module": "es2020",
     "newLine": "lf",
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "declaration": true,
+    "declarationMap": true,
+    "emitDeclarationOnly": false,
+    "outDir": "dist",
   },
   "include": ["src/*.ts"]
 }

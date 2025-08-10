@@ -1,26 +1,97 @@
-@top Program { expression* }
+@precedence {
+  AmendmentDeclaration,
+  ModuleDeclaration,
+  ImportDeclaration,
+  statement
+}
 
-@skip { space | LineComment }
+@top Program { (AmendmentDeclaration? | ModuleDeclaration?) ImportDeclaration* statement* }
 
-expression {
+@skip { space | LineComment | BlockComment | DocComment }
+
+kw<term> { @specialize[@name={term}]<Identifier, term> }
+
+AmendmentDeclaration {
+  kw<"amends"> String
+}
+
+ImportDeclaration {
+  kw<"import"> String
+}
+
+ModuleDeclaration {
+  kw<"module"> Identifier ("." Identifier)*
+}
+
+Assignment {
+  Identifier "=" expression
+}
+
+ObjectDeclaration {
+  Identifier "{" statement* "}"
+}
+
+statement {
+  Boolean |
   Identifier |
   String |
+  Number |
+  FunctionCall |
+  Assignment |
+  ObjectDeclaration
+}
+
+expression {
   Boolean |
-  Application { "(" expression* ")" }
+  Identifier |
+  String |
+  Number |
+  FunctionCall |
+  "(" expression ")"
+}
+
+argumentList {
+  expression ("," expression)*
+}
+
+FunctionCall {
+  Identifier "(" argumentList? ")"
 }
 
 @tokens {
-  Identifier { $[a-zA-Z_\-0-9]+ }
+  @precedence {
+    Boolean,
+    Identifier
+  }
+  
+  identifierChar { @asciiLetter | $[_$\u{a1}-\u{10ffff}] }
+
+  Identifier { identifierChar (identifierChar | @digit)* }
 
   String { '"' (!["\\] | "\\" _)* '"' }
 
-  Boolean { "#t" | "#f" }
+  Number { $[0-9]+ ("." $[0-9]+)? }
 
-  LineComment { ";" ![\n]* }
+  Boolean { "true" | "false" }
+
+  @precedence {
+    DocComment,
+    LineComment
+  }
+
+  LineComment { "//" ![\n]* }
+
+  DocComment { "///" ![\n]* }
+
+  BlockComment[isolate] { "/*" blockCommentRest }
+
+  blockCommentRest { ![*] blockCommentRest | "*" blockCommentAfterStar }
+
+  blockCommentAfterStar { "/" | "*" blockCommentAfterStar | ![/*] blockCommentRest }
 
   space { $[ \t\n\r]+ }
 
-  "(" ")"
+  "(" ")" "," "="
 }
 
 @detectDelim

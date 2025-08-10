@@ -1,10 +1,10 @@
 {
-  "name": "codemirror-lang-EXAMPLE",
-  "version": "0.1.0",
-  "description": "EXAMPLE language support for CodeMirror",
+  "name": "@codemirror/lang-pkl",
+  "version": "0.0.1",
+  "description": "pkl language support for CodeMirror",
   "scripts": {
     "test": "mocha test/test.js",
-    "prepare": "rollup -c"
+    "prepare": "cm-buildhelper src/index.ts"
   },
   "type": "module",
   "main": "dist/index.cjs",
@@ -16,9 +16,10 @@
   "types": "dist/index.d.ts",
   "sideEffects": false,
   "dependencies": {
-    "@codemirror/language": "^6.0.0",
     "@lezer/highlight": "^1.0.0",
-    "@lezer/lr": "^1.0.0"
+    "@lezer/lr": "^1.0.0",
+    "@codemirror/language": "^6.0.0",
+    "@lezer/common": "^1.2.0"
   },
   "devDependencies": {
     "@lezer/generator": "^1.0.0",
