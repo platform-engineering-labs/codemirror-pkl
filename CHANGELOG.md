@@ -1,4 +1,4 @@
-## 0.1.0
+## 0.1.0 (2025-08-25)
 
 - Implement initial Pkl language support for CodeMirror
 - Lezer grammar for core declarations and expressions
