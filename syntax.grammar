@@ -95,8 +95,6 @@ parameter {
   Definition (":" typeExpression)? ("=" expression)?
 }
 
-
-
 ClassDeclaration {
   modifiers? kw<"class"> Identifier "{" statement* "}"
 }
@@ -105,7 +103,6 @@ TypeAliasDeclaration {
   modifiers? kw<"typealias"> Identifier "=" typeExpression
 }
 
-// Fixed type expressions to avoid circular references
 typeExpression {
   UnionType
 }
@@ -218,8 +215,6 @@ Annotation {
   "@" Identifier
 }
 
-
-
 BinaryExpression {
   expression !pipe "|>" expression |
   expression !nullCoalesce "??" expression |
@@ -249,8 +244,6 @@ LambdaExpression {
   !lambda "(" parameter ("," parameter)+ ")" "->" expression
 }
 
-
-
 NewExpression {
   kw<"new"> "{" statement* "}" |
   kw<"new"> (QualifiedType | BuiltinType | Identifier) "{" statement* "}"
@@ -268,17 +261,14 @@ SupportType {
   kw<"never">
 }
 
-// Contextual identifier types using Java-style approach
 ModuleName {
   Identifier ("." Identifier)*
 }
 
-// Simple approach - use Identifier everywhere, rely on tree structure for styling
 Definition {
   Identifier
 }
 
-// Member property names (allow quoted identifiers)
 MemberName {
   Identifier |
   QuotedIdentifier
@@ -352,7 +342,6 @@ PrimaryExpression {
   hashString5 { '#####"' hashStringContent5* '"#####' }
   hashString6 { '######"' hashStringContent6* '"######' }
   
-  // Triple-quoted hash strings
   hashTripleString1 { '#"""' multiLineStringContent* '"""#' }
   hashTripleString2 { '##"""' multiLineStringContent* '"""##' }
   hashTripleString3 { '###"""' multiLineStringContent* '"""###' }
