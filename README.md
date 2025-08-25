@@ -1,21 +1,48 @@
-# CodeMirror 6 language package template
+# CodeMirror language support for Pkl
 
-This is an example repository containing a minimal [CodeMirror](https://codemirror.net/6/) language support package. The idea is to clone it, rename it, and edit it to create support for a new language.
+This package provides CodeMirror 6 language support for [Pkl](https://pkl-lang.org/): syntax highlighting, indentation, and basic folding.
 
-Things you'll need to do (see the [language support example](https://codemirror.net/6/examples/lang-package/) for a more detailed tutorial):
+## Install
 
- * `git grep EXAMPLE` and replace all instances with your language name.
+```bash
+npm install @codemirror/lang-pkl
+```
 
- * Rewrite the grammar in `src/syntax.grammar` to cover your language. See the [Lezer system guide](https://lezer.codemirror.net/docs/guide/#writing-a-grammar) for information on this file format.
+## Use
 
- * Adjust the metadata in `src/index.ts` to work with your new grammar.
+```ts
+import {EditorState} from "@codemirror/state"
+import {EditorView, basicSetup} from "codemirror"
+import {pkl} from "@codemirror/lang-pkl"
 
- * Adjust the grammar tests in `test/cases.txt`.
+new EditorView({
+  state: EditorState.create({
+    doc: "module com.example\n\nfunction add(x: Int) = x + 1\n",
+    extensions: [basicSetup, pkl()]
+  }),
+  parent: document.querySelector("#editor")!
+})
+```
 
- * Build (`npm run prepare`) and test (`npm test`).
+## Features
 
- * Rewrite this readme file.
+- Highlighting for Pkl keywords, operators, built-in types
+- Indentation for blocks, calls, object literals
+- Folding for blocks, classes, object declarations, and `new { ... }`
 
- * Optionally add a license.
+## File types
 
- * Publish. Put your package on npm under a name like `codemirror-lang-pkl`.
+- Recognized extensions: `.pkl`, `.pcf`
+
+## Status / Known limitations
+
+- Grammar cover core expressions, declarations, and common constructs used in Pkl code. 
+- Some advanced or less common features may be incomplete, such as string interpolation.
+- If you run into a construct that should parse but doesn’t, please open an issue with a minimal example.
+
+## Build & Test
+
+```bash
+npm run prepare
+npm test
+```
