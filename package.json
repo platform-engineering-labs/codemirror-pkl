@@ -1,7 +1,7 @@
 {
   "name": "@codemirror/lang-pkl",
-  "version": "0.0.1",
-  "description": "pkl language support for CodeMirror",
+  "version": "0.1.0",
+  "description": "CodeMirror 6 language support for Pkl",
   "scripts": {
     "test": "mocha test/test.js",
     "prepare": "cm-buildhelper src/index.ts"
@@ -15,6 +15,16 @@
   },
   "types": "dist/index.d.ts",
   "sideEffects": false,
+  "keywords": ["codemirror", "codemirror6", "language", "pkl", "syntax", "highlight"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/codemirror/dev"
+  },
+  "bugs": {
+    "url": "https://github.com/codemirror/dev/issues"
+  },
+  "homepage": "https://codemirror.net/6/",
+  "author": "CodeMirror contributors",
   "dependencies": {
     "@lezer/highlight": "^1.0.0",
     "@lezer/lr": "^1.0.0",
