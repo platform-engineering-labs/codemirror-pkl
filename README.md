@@ -5,7 +5,7 @@ This package provides CodeMirror 6 language support for [Pkl](https://pkl-lang.o
 ## Install
 
 ```bash
-npm install @codemirror/lang-pkl
+npm install codemirror-lang-pkl
 ```
 
 ## Use
@@ -13,7 +13,7 @@ npm install @codemirror/lang-pkl
 ```ts
 import {EditorState} from "@codemirror/state"
 import {EditorView, basicSetup} from "codemirror"
-import {pkl} from "@codemirror/lang-pkl"
+import {pkl} from "codemirror-lang-pkl"
 
 new EditorView({
   state: EditorState.create({
